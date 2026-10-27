@@ -121,7 +121,11 @@ def index():
 
 @app.route('/uploads/<path:filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    # Serve user uploads; fall back to bundled demo images (uploads/ is not in git)
+    upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if os.path.isfile(upload_path):
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    return send_from_directory(os.path.join(BASE_DIR, 'static', 'images'), filename)
 
 @app.route('/api/stats', methods=['GET'])
 def get_stats():
@@ -320,10 +324,14 @@ def reset_demo():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Create tables + seed demo data on startup (works with gunicorn too)
+init_db()
+
 if __name__ == '__main__':
-    init_db()
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_DEBUG', '0') == '1'
     print("=" * 60)
     print("  Road Complaint System - CEP (Varale, Pune)")
-    print("  Server running at: http://127.0.0.1:5000")
+    print(f"  Server running at: http://127.0.0.1:{port}")
     print("=" * 60)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=debug)
