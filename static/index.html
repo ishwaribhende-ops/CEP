@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Road Complaint System – CEP (Varale, Pune)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚧</text></svg>">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Site Header & Navigation
+       ========================================================================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" onclick="navigateTo('home')">
+        <div class="brand-icon">🚧</div>
+        <div class="brand-info">
+          <span class="brand-title">Road Complaint System</span>
+          <span class="brand-badge">CEP • Varale, Pune</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle menu">☰</button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><button class="nav-link active" onclick="navigateTo('home')">🏠 Home</button></li>
+          <li><button class="nav-link" onclick="navigateTo('report')">📝 Report Problem</button></li>
+          <li><button class="nav-link" onclick="navigateTo('track')">🔍 Track Complaint</button></li>
+          <li><button class="nav-link admin-btn" onclick="navigateTo('admin')">🛡️ Admin Dashboard</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       VIEW 1: HOME PAGE
+       ========================================================================= -->
+  <main>
+    <section id="view-home" class="view-section active">
+      <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+          <div class="hero-pill">📍 Varale, Pune — Citizen Road Safety Initiative</div>
+          <h1 class="hero-title">Road Complaint System</h1>
+          <h2 class="hero-subtitle">“Report. Track. Improve Our Roads.”</h2>
+          <p class="hero-desc">
+            Empowering residents and commuters of Varale to report hazardous potholes, damaged road stretches, broken asphalt, and overflowing drainages. Submit geo-tagged evidence in seconds and track road repair progress in real time.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-accent btn-lg" onclick="navigateTo('report')">
+              ⚠️ Report a Road Problem
+            </button>
+            <button class="btn btn-outline btn-lg" onclick="navigateTo('track')">
+              🔎 Track Complaint
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Metrics Banner -->
+        <div class="stats-banner">
+          <div class="stat-card">
+            <div class="stat-icon total">📊</div>
+            <div>
+              <div class="stat-number" id="home-stat-total">0</div>
+              <div class="stat-label">Total Complaints</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon pending">⏳</div>
+            <div>
+              <div class="stat-number" id="home-stat-pending">0</div>
+              <div class="stat-label">Pending Review</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon progress">🛠️</div>
+            <div>
+              <div class="stat-number" id="home-stat-progress">0</div>
+              <div class="stat-label">In Progress</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon resolved">✅</div>
+            <div>
+              <div class="stat-number" id="home-stat-resolved">0</div>
+              <div class="stat-label">Roads Resolved</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Heading -->
+        <div class="section-heading">
+          <h2>How It Works</h2>
+          <p>Quick, transparent, and student-community driven road maintenance for Varale</p>
+        </div>
+
+        <!-- 3 Simple Feature Cards Required by PRD -->
+        <div class="cards-grid">
+          <!-- Card 1: Report Problem -->
+          <div class="feature-card card-1">
+            <div class="feature-card-top">
+              <div class="feature-card-icon">⚠️</div>
+              <span class="badge badge-pothole">Step 1</span>
+            </div>
+            <h3>Report Problem</h3>
+            <p>
+              Spot a pothole, caved-in road edge, or water stagnation? Upload photo evidence, specify the Varale location, and submit your report in under two minutes.
+            </p>
+            <div class="card-action">
+              <button class="btn btn-primary btn-sm" onclick="navigateTo('report')">
+                Report a Problem &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Track Complaint -->
+          <div class="feature-card card-2">
+            <div class="feature-card-top">
+              <div class="feature-card-icon">🔎</div>
+              <span class="badge badge-drainage">Step 2</span>
+            </div>
+            <h3>Track Complaint</h3>
+            <p>
+              Follow your complaint status through our transparent 4-stage lifecycle: <strong>Submitted ➔ Under Review ➔ In Progress ➔ Resolved</strong> with official notes.
+            </p>
+            <div class="card-action">
+              <button class="btn btn-outline btn-sm" onclick="navigateTo('track')">
+                Track Status Now &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Road Safety -->
+          <div class="feature-card card-3">
+            <div class="feature-card-top">
+              <div class="feature-card-icon">🛡️</div>
+              <span class="badge badge-damaged">Safety First</span>
+            </div>
+            <h3>Road Safety</h3>
+            <p>
+              Stay informed with local safety tips for navigating Talegaon-Chakan Link Road, school zones around ZP Primary School, and avoiding hydroplaning during monsoons.
+            </p>
+            <div class="card-action">
+              <button class="btn btn-outline btn-sm" onclick="showSafetyGuidelines()">
+                Read Guidelines &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Road Safety & Helpline Banner -->
+        <div class="safety-box" id="safety-guidelines-box">
+          <div class="safety-box-icon">💡</div>
+          <div class="safety-box-content">
+            <h4>Varale Community Road Safety Tips</h4>
+            <p>
+              • Maintain safe speed (< 30 km/h) near <strong>ZP Primary School Road</strong> and residential areas.<br>
+              • Watch out for water-filled potholes near <strong>Varale Phata Junction</strong> during heavy rainfall.<br>
+              • Heavy industrial vehicles frequently commute along the <strong>Talegaon-Chakan Link Road</strong>; two-wheeler riders are advised to wear certified helmets and use headlights at dawn/dusk.<br>
+              • In case of emergency road hazards, alert the local Gram Panchayat or community helpline at <strong>02114-220000</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         VIEW 2: COMPLAINT REGISTRATION PAGE
+         ========================================================================= -->
+    <section id="view-report" class="view-section">
+      <div class="container">
+        <!-- Complaint Form Card -->
+        <div class="form-card" id="form-container">
+          <div class="form-header">
+            <h2><span>📋</span> Register Road Complaint</h2>
+            <p>Report damaged roads, potholes, or drainage issues in Varale, Pune. All fields marked with <span class="required-star">*</span> are mandatory.</p>
+          </div>
+
+          <form id="complaintForm" enctype="multipart/form-data">
+            <div class="form-grid">
+              <!-- Full Name -->
+              <div class="form-group">
+                <label for="fullName">Full Name <span class="required-star">*</span></label>
+                <input type="text" id="fullName" name="name" placeholder="e.g. Rahul Patil" required>
+              </div>
+
+              <!-- Mobile Number -->
+              <div class="form-group">
+                <label for="mobileNumber">Mobile Number <span class="required-star">*</span></label>
+                <input type="tel" id="mobileNumber" name="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+              </div>
+
+              <!-- Road / Area Name -->
+              <div class="form-group full-width">
+                <label for="roadArea">Road / Area Name <span class="required-star">*</span></label>
+                <input type="text" id="roadArea" name="road_area" placeholder="e.g. Varale Phata Junction, Talegaon-Chakan Link Road" required>
+                <div class="suggested-chips">
+                  <span style="font-size:0.75rem; color:var(--text-muted); align-self:center;">Quick Select:</span>
+                  <button type="button" class="chip-btn" onclick="setArea('Varale Phata Junction')">Varale Phata</button>
+                  <button type="button" class="chip-btn" onclick="setArea('Talegaon-Chakan Link Road')">Talegaon-Chakan Link</button>
+                  <button type="button" class="chip-btn" onclick="setArea('ZP Primary School Road')">ZP School Road</button>
+                  <button type="button" class="chip-btn" onclick="setArea('Maruti Mandir Chowk, Gaothan')">Maruti Mandir Chowk</button>
+                  <button type="button" class="chip-btn" onclick="setArea('Varale MIDC Sector 3 Road')">MIDC Sector 3</button>
+                </div>
+              </div>
+
+              <!-- Problem Type Dropdown -->
+              <div class="form-group">
+                <label for="problemType">Problem Type <span class="required-star">*</span></label>
+                <select id="problemType" name="problem_type" required>
+                  <option value="" disabled selected>-- Select Problem Type --</option>
+                  <option value="Pothole">🕳️ Pothole</option>
+                  <option value="Damaged Road">🚧 Damaged Road</option>
+                  <option value="Drainage Problem">💧 Drainage Problem</option>
+                  <option value="Broken Road">🧱 Broken Road</option>
+                  <option value="Other">⚠️ Other</option>
+                </select>
+              </div>
+
+              <!-- Specific Location -->
+              <div class="form-group">
+                <label for="locationInput">Exact Location / Landmark <span class="required-star">*</span></label>
+                <div class="input-with-button">
+                  <input type="text" id="locationInput" name="location" placeholder="e.g. Near Petrol Pump, 18.7328° N" required>
+                  <button type="button" class="btn btn-outline btn-sm" id="btnDetectLocation" title="Auto-detect current GPS location">
+                    📍 GPS
+                  </button>
+                </div>
+              </div>
+
+              <!-- Problem Description -->
+              <div class="form-group full-width">
+                <label for="problemDesc">Problem Description <span class="required-star">*</span></label>
+                <textarea id="problemDesc" name="description" placeholder="Describe the road issue in detail (depth of pothole, obstruction caused, traffic hazard, etc.)..." required></textarea>
+              </div>
+
+              <!-- Upload Road Photo -->
+              <div class="form-group full-width">
+                <label>Upload Road Photo (Evidence)</label>
+                <div class="upload-dropzone" id="dropzone">
+                  <div class="upload-icon">📷</div>
+                  <div class="upload-text">Click to choose image or drag & drop here</div>
+                  <div class="upload-hint">Supports JPG, PNG, WEBP, SVG (Max 16MB)</div>
+                  <input type="file" id="photoInput" name="photo" accept="image/*" class="file-input-hidden">
+                </div>
+
+                <!-- Preview Box -->
+                <div class="preview-container" id="previewContainer">
+                  <img src="" alt="Road Preview" id="previewImg" class="preview-thumbnail">
+                  <div class="preview-info">
+                    <div class="preview-name" id="previewFileName">road_sample.jpg</div>
+                    <div class="preview-size" id="previewFileSize">120 KB</div>
+                  </div>
+                  <button type="button" class="preview-remove" id="btnRemovePhoto" title="Remove photo">✕</button>
+                </div>
+
+                <div style="margin-top: 0.5rem; display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:0.75rem; color:var(--text-muted);">Don't have a photo?</span>
+                  <button type="button" class="btn btn-outline btn-sm" id="btnUseSamplePhoto" style="font-size:0.75rem; padding:0.2rem 0.6rem;">
+                    🖼️ Attach Demo Road Photo
+                  </button>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-group full-width" style="margin-top: 1rem;">
+                <button type="submit" class="btn btn-primary btn-lg" id="btnSubmitComplaint" style="width: 100%;">
+                  🚀 Submit Road Complaint
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Submission Success Confirmation Box -->
+        <div class="submission-success-card" id="successBox">
+          <div class="success-icon-wrap">✓</div>
+          <h2>Complaint Successfully Registered!</h2>
+          <p style="color:var(--text-muted); margin-top:0.5rem;">
+            Your road complaint has been safely stored in the official Varale, Pune database. Please save your unique Complaint ID below to track resolution progress.
+          </p>
+
+          <div class="success-id-box">
+            <div>
+              <span class="success-id-label">Your Unique Complaint ID</span>
+              <span class="success-id-value" id="generatedComplaintId">CEP-VAR-2026-101</span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="copyComplaintId()">📋 Copy ID</button>
+          </div>
+
+          <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="trackFromSuccess()">
+              🔍 Track Status Now
+            </button>
+            <button class="btn btn-outline" onclick="resetFormForNew()">
+              ➕ Report Another Issue
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         VIEW 3: COMPLAINT TRACKING PAGE
+         ========================================================================= -->
+    <section id="view-track" class="view-section">
+      <div class="container tracking-wrapper">
+        <div class="section-heading">
+          <h2>Track Complaint Status</h2>
+          <p>Enter your unique Complaint ID to check real-time road repair updates</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="track-search-card">
+          <label for="trackInput" style="font-size:0.95rem; font-weight:700;">Enter Complaint ID</label>
+          <div class="track-input-group">
+            <input type="text" id="trackInput" placeholder="e.g. CEP-VAR-2026-001" style="text-transform:uppercase;">
+            <button class="btn btn-primary" id="btnTrackSearch" onclick="handleTrackSearch()">
+              🔍 Search Status
+            </button>
+          </div>
+
+          <!-- Quick Test Chips -->
+          <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">Try Sample Demo IDs:</span>
+            <button type="button" class="chip-btn" onclick="quickTrack('CEP-VAR-2026-001')">CEP-VAR-2026-001 (In Progress)</button>
+            <button type="button" class="chip-btn" onclick="quickTrack('CEP-VAR-2026-002')">CEP-VAR-2026-002 (Under Review)</button>
+            <button type="button" class="chip-btn" onclick="quickTrack('CEP-VAR-2026-003')">CEP-VAR-2026-003 (Submitted)</button>
+            <button type="button" class="chip-btn" onclick="quickTrack('CEP-VAR-2026-004')">CEP-VAR-2026-004 (Resolved)</button>
+          </div>
+        </div>
+
+        <!-- Tracking Result Section -->
+        <div class="track-result-card" id="trackResultCard">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <span class="badge" id="trackStatusBadge">Submitted</span>
+              <h3 style="font-size:1.4rem; font-weight:800; color:var(--dark); margin-top:0.35rem;" id="trackComplaintId">
+                CEP-VAR-2026-001
+              </h3>
+            </div>
+            <div style="text-align:right;">
+              <span class="detail-label">Reported On</span>
+              <div style="font-weight:700; color:var(--dark);" id="trackDate">2026-09-10 10:30</div>
+            </div>
+          </div>
+
+          <!-- 4-Step Progress Stepper -->
+          <div class="stepper-container">
+            <div class="stepper-progress-bar">
+              <div class="stepper-progress-fill" id="stepperProgressFill"></div>
+            </div>
+            <ul class="stepper-steps">
+              <li class="step-item" id="step-submitted">
+                <div class="step-circle">1</div>
+                <div class="step-label">Submitted</div>
+                <div class="step-subtext">Logged into system</div>
+              </li>
+              <li class="step-item" id="step-under-review">
+                <div class="step-circle">2</div>
+                <div class="step-label">Under Review</div>
+                <div class="step-subtext">Inspection scheduled</div>
+              </li>
+              <li class="step-item" id="step-in-progress">
+                <div class="step-circle">3</div>
+                <div class="step-label">In Progress</div>
+                <div class="step-subtext">Repair team on site</div>
+              </li>
+              <li class="step-item" id="step-resolved">
+                <div class="step-circle">4</div>
+                <div class="step-label">Resolved</div>
+                <div class="step-subtext">Road repaired</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Detailed Information Grid -->
+          <div class="track-details-grid">
+            <div>
+              <div class="detail-row">
+                <span class="detail-label">Road / Area</span>
+                <span class="detail-value" id="trackArea">Varale Phata Junction</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Problem Type</span>
+                <div><span class="badge" id="trackProblemType">Pothole</span></div>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Exact Location / Coordinates</span>
+                <span class="detail-value" id="trackLocation">Varale Phata Chowk</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Citizen Description</span>
+                <p style="font-size:0.92rem; color:var(--text-main); margin-top:0.25rem; line-height:1.5;" id="trackDesc">
+                  Deep 8-inch asphalt pothole on the turn towards Talegaon MIDC.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <span class="detail-label" style="display:block; margin-bottom:0.4rem;">Road Photo Evidence</span>
+              <div class="track-photo-box">
+                <img src="images/pothole1.svg" alt="Road Condition Evidence" id="trackPhotoImg" class="track-photo-img" onclick="openLightbox(this.src)">
+              </div>
+              <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:0.3rem; text-align:center;">
+                🔍 Click image to enlarge
+              </span>
+            </div>
+          </div>
+
+          <!-- Official Authority Remarks -->
+          <div class="admin-note-box">
+            <div style="font-size:0.8rem; font-weight:700; text-transform:uppercase; color:var(--primary); margin-bottom:0.25rem;">
+              🏛️ Official Varale Authority Remarks
+            </div>
+            <p style="font-size:0.92rem; color:var(--dark);" id="trackAdminNotes">
+              Repair crew dispatched with cold-mix asphalt. Work in progress under Varale Gram Panchayat engineering division.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         VIEW 4: ADMIN DASHBOARD
+         ========================================================================= -->
+    <section id="view-admin" class="view-section">
+      <div class="container">
+        <!-- Admin Header -->
+        <div class="admin-header-strip">
+          <div>
+            <span class="admin-badge-portal">🛡️ Authorized Portal • Varale, Pune</span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--dark); margin-top: 0.35rem;">
+              Admin & Authority Dashboard
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.92rem;">
+              Monitor, review, and update road repair statuses across Varale Gram Panchayat & MIDC jurisdiction.
+            </p>
+          </div>
+          <div>
+            <button class="btn btn-outline btn-sm" onclick="resetDemoData()">
+              🔄 Reset Demo Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="stats-banner">
+          <div class="stat-card">
+            <div class="stat-icon total">📋</div>
+            <div>
+              <div class="stat-number" id="admin-stat-total">0</div>
+              <div class="stat-label">Total Complaints</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon pending">⏳</div>
+            <div>
+              <div class="stat-number" id="admin-stat-pending">0</div>
+              <div class="stat-label">Pending Complaints</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon progress">🚧</div>
+            <div>
+              <div class="stat-number" id="admin-stat-progress">0</div>
+              <div class="stat-label">Complaints In Progress</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon resolved">✅</div>
+            <div>
+              <div class="stat-number" id="admin-stat-resolved">0</div>
+              <div class="stat-label">Resolved Complaints</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="admin-toolbar">
+          <div class="toolbar-search-wrap">
+            <span style="color: var(--text-muted);">🔍</span>
+            <input type="text" id="adminSearchInput" placeholder="Search by ID, Area, or Citizen Name..." oninput="debounceAdminSearch()">
+          </div>
+
+          <div class="toolbar-actions-wrap">
+            <label for="adminStatusFilter" style="font-size: 0.85rem; font-weight: 600;">Status:</label>
+            <select id="adminStatusFilter" onchange="loadAdminComplaints()" style="padding: 0.45rem 0.8rem; font-size: 0.88rem;">
+              <option value="all">All Statuses</option>
+              <option value="Submitted">Submitted</option>
+              <option value="Under Review">Under Review</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+
+            <button class="btn btn-outline btn-sm" onclick="loadAdminComplaints()">
+              🔄 Refresh
+            </button>
+
+            <button class="btn btn-primary btn-sm" onclick="exportToCSV()">
+              📥 Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Complaints Table -->
+        <div class="table-responsive">
+          <table class="data-table" id="complaintsTable">
+            <thead>
+              <tr>
+                <th>Complaint ID</th>
+                <th>Citizen</th>
+                <th>Area / Road</th>
+                <th>Problem Type</th>
+                <th>Date</th>
+                <th>Photo</th>
+                <th>Current Status</th>
+                <th>Action (Update Status)</th>
+              </tr>
+            </thead>
+            <tbody id="complaintsTableBody">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+          <div class="table-empty-state" id="tableEmptyState" style="display: none;">
+            <div class="table-empty-icon">📭</div>
+            <h4>No complaints found</h4>
+            <p>Try clearing your search or status filter.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       Modals: Detail View & Status Update Note
+       ========================================================================= -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalComplaintId">Complaint Details</h3>
+        <button class="modal-close" onclick="closeModal('detailModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="modalComplaintBody">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal -->
+  <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+    <img src="" alt="Enlarged road photo" id="lightboxImg" class="lightbox-img">
+  </div>
+
+  <!-- Floating Toast Notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- =========================================================================
+       Footer
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <strong>CEP – Road Complaint System</strong> &bull; Location: Varale, Pune
+      </div>
+      <div style="font-size: 0.8rem;">
+        College Engineering Prototype (CEP) &bull; Built with Flask &amp; SQLite
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>
+

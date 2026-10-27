@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+complaints.db
+complaints.db-*
+uploads/

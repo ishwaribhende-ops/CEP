@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" fill="#334155"/>
+  <line x1="300" y1="0" x2="300" y2="100" stroke="#F59E0B" stroke-width="12" stroke-dasharray="25,20"/>
+  <line x1="300" y1="140" x2="300" y2="400" stroke="#F59E0B" stroke-width="12" stroke-dasharray="25,20"/>
+  <ellipse cx="280" cy="220" rx="140" ry="80" fill="#0F172A" stroke="#1E293B" stroke-width="8"/>
+  <ellipse cx="270" cy="225" rx="110" ry="55" fill="#020617"/>
+  <path d="M150,210 Q200,200 240,215 T180,240" stroke="#475569" stroke-width="4" fill="none"/>
+  <path d="M410,210 Q370,230 350,215 T380,250" stroke="#475569" stroke-width="4" fill="none"/>
+  <path d="M260,140 Q270,170 280,180" stroke="#475569" stroke-width="4" fill="none"/>
+  <circle cx="230" cy="180" r="6" fill="#64748B"/>
+  <circle cx="340" cy="270" r="8" fill="#64748B"/>
+  <circle cx="190" cy="250" r="5" fill="#64748B"/>
+  <circle cx="360" cy="170" r="7" fill="#64748B"/>
+  <ellipse cx="285" cy="230" rx="70" ry="30" fill="#1E3A8A" opacity="0.6"/>
+  <text x="30" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF">Varale Phata - Severe Pothole</text>
+  <rect x="30" y="60" width="130" height="24" rx="4" fill="#DC2626"/>
+  <text x="40" y="77" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FFFFFF">HIGH SEVERITY</text>
+</svg>
